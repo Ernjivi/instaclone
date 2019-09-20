@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  nosql:
+    image: mongo:latest
+    container_name: instaclone-nosql
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+    volumes:
+      # Windows
+      # - instaclone-nosql-data:/data/db
+      - ./nosql_data:/data/db
+  intaclone:
+    build: .
+    container_name: instaclone
+    ports:
+      - 3000:3000
+    volumes:
+      - ./code:/code
+    working_dir: /code
+    # command: sh -c "yarn && yarn start"
+    command: ['tail', '-f', '/dev/null']
+    depends_on:
+      - nosql
+networks:
+  default:
+    name: instaclone-net
+# Windows Only
+# volumes:
+#   instaclone-nosql-data:
+#     driver: local
