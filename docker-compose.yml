@@ -15,12 +15,11 @@ services:
     build: .
     container_name: instaclone
     ports:
-      - 3000:3000
+      - 3009:3009
     volumes:
       - ./code:/code
     working_dir: /code
-    # command: sh -c "yarn && yarn start"
-    command: ['tail', '-f', '/dev/null']
+    command: sh -c "yarn && yarn start"
     depends_on:
       - nosql
 networks:
